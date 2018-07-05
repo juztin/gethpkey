@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"path"
 	"path/filepath"
 
@@ -282,11 +283,17 @@ func keyFileFor(key string, keyPath string) (string, error) {
 }
 
 func main() {
-	keyArg := flag.String("key", "", "The key file to retrive the private key for")
+	keyArg := flag.String("key", "", "The key file to retrive the private key for (required)")
 	pathArg := flag.String("path", "./.misty/blockchain/keystore", "Path of the Geth keystore")
 	passwordArg := flag.String("password", "password", "The password for the key")
 
 	flag.Parse()
+
+	if *keyArg == "" {
+		fmt.Println("Missing required `key` param\n")
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	file, err := keyFileFor(*keyArg, *pathArg)
 	if err != nil {
