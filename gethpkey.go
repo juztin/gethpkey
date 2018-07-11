@@ -16,6 +16,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"golang.org/x/crypto/pbkdf2"
 	"golang.org/x/crypto/scrypt"
@@ -271,6 +272,10 @@ func ensureInt(x interface{}) int {
 }
 
 func keyFileFor(key string, keyPath string) (string, error) {
+	if strings.HasPrefix(key, "0x") {
+		// Strip "0x" prefix
+		key = key[2:]
+	}
 	file := path.Join(keyPath, "*--"+key)
 	matches, err := filepath.Glob(file)
 	if err != nil {
