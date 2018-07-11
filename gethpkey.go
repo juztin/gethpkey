@@ -284,7 +284,7 @@ func keyFileFor(key string, keyPath string) (string, error) {
 
 func main() {
 	keyArg := flag.String("key", "", "The key file to retrive the private key for (required)")
-	pathArg := flag.String("path", "./.misty/blockchain/keystore", "Path of the Geth keystore")
+	pathArg := flag.String("path", "./blockchain/keystore", "Path of the Geth keystore")
 	passwordArg := flag.String("password", "password", "The password for the key")
 
 	flag.Parse()
