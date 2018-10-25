@@ -276,7 +276,7 @@ func keyFileFor(key string, keyPath string) (string, error) {
 		// Strip "0x" prefix
 		key = key[2:]
 	}
-	file := path.Join(keyPath, "*--"+key)
+	file := path.Join(keyPath, "*"+key+"*")
 	matches, err := filepath.Glob(file)
 	if err != nil {
 		return "", err
@@ -288,9 +288,9 @@ func keyFileFor(key string, keyPath string) (string, error) {
 }
 
 func main() {
-	keyArg := flag.String("key", "", "The key file to retrive the private key for (required)")
-	pathArg := flag.String("path", "./blockchain/keystore", "Path of the Geth keystore")
-	passwordArg := flag.String("password", "password", "The password for the key")
+	keyArg := flag.String("key", "", "(REQUIRED) The public key to retrive the private key for (required)")
+	pathArg := flag.String("path", ".", "Path of the Geth keystore")
+	passwordArg := flag.String("password", "", "The password for the key")
 
 	flag.Parse()
 
